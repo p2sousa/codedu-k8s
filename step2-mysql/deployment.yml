@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-server
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: mysql-server
+      tier: db
+  
+  template:
+    metadata:
+      labels:
+        app: mysql-server
+        tier: db  
+    spec:
+      containers:
+      - name: mysql-server
+        image: mysql:5.7
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        ports:
+        - containerPort: 3306

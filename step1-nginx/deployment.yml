@@ -19,6 +19,11 @@ spec:
         - mountPath: /etc/nginx/conf.d
           name: nginx-conf
           readOnly: true
+
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: nginx-index
+          readOnly: true
       
       volumes:
       - name: nginx-conf
@@ -27,3 +32,10 @@ spec:
           items:
             - key: nginx.conf
               path: nginx.conf
+      
+      - name: nginx-index
+        configMap:
+          name: nginx-conf
+          items:
+            - key: nginx.index
+              path: index.html
